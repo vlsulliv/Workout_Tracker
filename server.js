@@ -11,7 +11,14 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.envMONGOD_URI || "mongodb://localhost/workout")
+mongoose.connect(process.envMONGOD_URI || "mongodb://localhost/workout", {  
+ useNewUrlParser: true,
+ useFindAndModify: false,
+ useUnifiedTopology: true,
+});
+
+app.use(require('./routes/views'));
+app.use(require('./routes/api'));
 
 app.listen(PORT, () => {
     console.log("successfully connected to db");
